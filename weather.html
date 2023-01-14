@@ -1,0 +1,81 @@
+	 <!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+	<title>weather app</title>
+	<style>
+		#d1{
+            margin-left: 500px;
+            margin-top: 20px;
+            height: 180px;
+            width: 450px;
+            background-color:RED;
+		}
+        #d2{
+            height: 400px;
+            width: 400px;
+            margin-left: 530px;
+            border-radius:50px;
+        }
+        input{
+            margin-top: 30px;
+            border-radius: 5px;
+            height: 40px;
+            width: 300px;
+            font-size: 25px;
+        }
+      
+	</style>
+</head>
+<body style="background-image: url(C:/bootstrap/weather.jpg);">
+    <h1 class="text-center bg-gradient shadow-lg container text-primary" ><i>Weather App</i></h1>
+    <h4 class="text-center bg-gradient shadow-lg container">Developed by Hemant Gupta</h4>
+	<div id="d1" class="border-dark shadow-lg p-3 mb-5 bg-light rounded rounded-3 rounded-end bg-danger text-danger pt-3">
+		<div class="text-center"><input id="inbox" class="input-box text-center shadow-lg"placeholder="Enter the city name" type="text" placeholder="enter city name"/></div>
+        <div class="text-center pt-2"><button onclick="show()" class="btn btn-primary">SEARCH</button></div>
+	</div>
+    <div id="d2" class="row">
+        <div class="border-dark shadow-lg p-3 mb-5 bg-white rounded rounded-3 rounded-end">
+            <div class="text-center fs-3 text-dark">city <label id="city" class="text-capitalize text-primary"></label></div>
+            <div class="text-center fs-4 text-dark">Temperature <label id="temp" class="text-danger"></label></div>
+            <div class="text-center fs-4 text-dark">humidity <label id="humd" class="text-capitalize text-warning"></label></div>
+            <div class="text-center fs-4 text-dark">Max Temp. <label id="maxt" class="text-capitalize text-muted"></label></div>
+            <div class="text-center fs-4 text-dark">Min Temp.  <label id="mint" class="text-capitalize text-info"></label></div>
+            <div class="text-center fs-4 text-dark">Sunrise <label id="srise" class="text-capitalize text-secondary"></label></div>
+            <div class="text-center fs-4 text-dark">Sunset <label id="sset" class="text-capitalize text-warning"></label></div>
+        </div>
+    </div>
+    <script>
+        let key= "bab281d79e5f1e9755a68d754cc313e7";
+        show=()=>{
+            let inbox=document.getElementById('inbox').value;
+            weatherReport(inbox);
+        }
+        async function weatherReport(city)
+        {
+            let res= await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`)
+            let data= await res.json();
+            console.log(data)
+            console.log(data.sys.sunrise);
+            let sunr=data.sys.sunrise;
+            let sunrise=new Date(sunr*1000);
+            let h=sunrise.getHours()
+            let m=sunrise.getMinutes()
+            let suns=data.sys.sunset;
+            let sunset=new Date(suns*1000);
+            let hh=sunset.getHours();
+            let mm=sunset.getMinutes();
+            document.getElementById('city').innerHTML=`${data.name}, ${data.sys.country}`;
+            document.getElementById('temp').innerHTML=`${(data.main.temp)}&deg;C`;
+            document.getElementById('humd').innerHTML=`${data.main.humidity}`;
+            document.getElementById('maxt').innerHTML=`${data.main.temp_max}`;
+            document.getElementById('mint').innerHTML=`${data.main.temp_min}`;
+            document.getElementById('srise').innerHTML=`${h}:${m}`;
+            document.getElementById('sset').innerHTML=`${hh}:${mm}`;
+        }
+    </script>
+</body>
+</html>
