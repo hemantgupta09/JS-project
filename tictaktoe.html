@@ -1,0 +1,198 @@
+<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.reset{
+			border-radius: 10px;
+			background-color: rgb(224, 64, 187);
+			font-size: 20px;
+			display: flex;
+		}
+		button{
+			font-size: 20px;
+			background-color:  rgb(0, 255, 174);
+		}
+		.gamecontainer{
+			display: flex;
+			justify-content: center;
+			margin-top: 50px;
+		}
+		.container{
+			display: grid;
+			grid-template-columns: repeat(3, 10vw);
+			grid-template-rows: repeat(3, 10vw);
+			font-family: calibri;
+		}
+		.box{
+			border: 2px solid black;
+			font-size: 8vw;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.box:hover{
+			background-color: rgb(184, 163, 204);
+		}
+		.gameinfo{
+			padding: 0 34px;
+			font-family: calibri;
+		}
+		.br-0{
+			border-right: 0;
+		}
+		.bl-0{
+			border-left: 0;
+		}
+		.bt-0{
+			border-top: 0;
+		}
+		.bb-0{
+			border-bottom: 0;
+		}
+		#d1{
+			height: 80px;
+			width: 50%;
+			background-color: rgb(149, 36, 254);
+			margin-left: 250px;
+			justify-content: center;
+			padding-top: 15px;
+			border-radius: 40px;
+		}
+		h1{
+			font-family: calibri;
+			font-size: 40px;
+		}
+		#d2{
+			margin-left: 450px;
+			margin-top: 20px;
+		}
+		#h2{
+			font-family: calibri;
+		}
+		#h1{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="d1">
+		<h1 align="center">Tic Tac Toe</h1>
+	</div>
+	<div id="d2"><h2 id="h2">Turn for X</h2></div>
+	<div id="d2"><h2 id="h3"></h2></div>
+	<div class="gamecontainer">
+		<div class="container">
+			<div class="box bt-0 bl-0" onclick="show('1')"><span id="1" ></span></div>
+			<div class="box bt-0" onclick="show('2')"><span id="2"></span></div>
+			<div class="box bt-0 br-0" onclick="show('3')"><span id="3"></span></div>
+			<div class="box bl-0" onclick="show('4')"><span id="4"></span></div>
+			<div class="box" onclick="show('5')"><span id="5"></span></div>
+			<div class="box br-0" onclick="show('6')"><span id="6"></span></div>
+			<div class="box bl-0 bb-0" onclick="show('7')"><span id="7"></span></div>
+			<div class="box bb-0" onclick="show('8')"><span id="8"></span></div>
+			<div class="box bb-0 br-0" onclick="show('9')"><span id="9"></span></div>
+		</div>
+		<div class="gameinfo">
+			<h1>Developed by Hemant Gupta</h1>
+			<div>
+				<h1 id="h1">winner here</h1>
+				<button onclick="reset()" class="reset">Reset</button>
+			</div>
+		</div>
+	</div>
+	<script>
+		const sound=new Audio("tic.mp3")
+		let turn="X";
+		const reset=()=>{
+			document.getElementById("1").innerHTML="";
+			document.getElementById("2").innerHTML="";
+			document.getElementById("3").innerHTML="";
+			document.getElementById("4").innerHTML="";
+			document.getElementById("5").innerHTML="";
+			document.getElementById("6").innerHTML="";
+			document.getElementById("7").innerHTML="";
+			document.getElementById("8").innerHTML="";
+			document.getElementById("9").innerHTML="";
+		}
+		const chechwin=()=>{
+			let t1=document.getElementById("1").innerHTML;
+			let t2=document.getElementById("2").innerHTML;
+			let t3=document.getElementById("3").innerHTML;
+			let t4=document.getElementById("4").innerHTML;
+			let t5=document.getElementById("5").innerHTML;
+			let t6=document.getElementById("6").innerHTML;
+			let t7=document.getElementById("7").innerHTML;
+			let t8=document.getElementById("8").innerHTML;
+			let t9=document.getElementById("9").innerHTML;
+			if(t1=="X" && t2=="X" && t3=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t1=="0" && t2=="0" && t3=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t4=="X" && t5=="X" && t6=="X")
+				document.getElementById("h1").innerHTML="Player X WON"
+			else if(t4=="0" && t5=="0" && t6=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t7=="X" && t8=="X" && t9=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t7=="0" && t8=="0" && t9=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t1=="X" && t5=="X" && t9=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t1=="0" && t5=="0" && t9=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t3=="X" && t5=="X" && t7=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t3=="0" && t5=="0" && t7=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t1=="X" && t4=="X" && t7=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t1=="0" && t4=="0" && t7=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t2=="X" && t5=="X" && t8=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t2=="0" && t5=="0" && t8=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+			else if(t3=="X" && t6=="X" && t9=="X")
+				document.getElementById("h1").innerHTML="Player X WON";
+			else if(t3=="0" && t6=="0" && t9=="0")
+				document.getElementById("h1").innerHTML="Player 0 WON";
+		}
+		const changeturn=()=>{
+			if(turn=="X")
+			{
+				turn="0";
+			}
+			else
+			{
+				turn="X";
+			}
+		}
+		show=(n)=>{
+			let text=document.getElementById(n).innerHTML;
+			if(text=="")
+			{
+				document.getElementById("h3").style.display="none";
+				document.getElementById(n).innerHTML=turn;
+				if(document.getElementById(n).innerHTML=="X")
+				{
+					document.getElementById(n).style.color="blue";
+				}
+				else
+				{
+					document.getElementById(n).style.color="red";
+				}
+				changeturn();
+				chechwin();
+				sound.play();
+				document.getElementById("h2").innerHTML="Turn for "+turn;
+			}
+			else
+			{
+				document.getElementById("h3").style.display="block";
+				document.getElementById("h3").innerHTML="Please click on blank boxes"
+			}
+		}
+	</script>
+</body>
